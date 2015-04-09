@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MassTransit;
+using NEventStore;
 using NEventStore.Dispatcher;
-using NEventStore.Persistence;
 
-namespace NEventStore
+namespace EventStore.Common
 {
     public class MassTransitPublisher : IDispatchCommits
     {

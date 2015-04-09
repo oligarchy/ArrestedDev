@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NEventStore;
 
-namespace NEventStore
+namespace EventStore.Common
 {
     public class AuthorizationPipelineHook : PipelineHookBase
     {
