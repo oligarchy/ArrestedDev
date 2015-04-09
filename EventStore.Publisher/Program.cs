@@ -30,10 +30,9 @@ namespace EventStore.Publisher
             ServiceBusFactory.New(sbc =>
             {
                 sbc.UseRabbitMq();
-                sbc.
             });
 
-            Bus.Initialize(sbc =>
+            /*Bus.Initialize(sbc =>
             {
                 sbc.UseMsmq();
                 sbc.VerifyMsmqConfiguration();
@@ -46,7 +45,7 @@ namespace EventStore.Publisher
             });
 
         Bus.Instance.Publish(new YourMessage{Text = "Hi"});
-
+            */
             var store = Wireup.Init()
                .LogToOutputWindow()
                .UsingInMemoryPersistence()
@@ -62,7 +61,7 @@ namespace EventStore.Publisher
                .UsingSynchronousDispatchScheduler()
                    .DispatchTo(new DelegateMessageDispatcher(DispatchCommit))
                .Build();
-
+            
             using (store)
             {
                 using (var stream = store.CreateStream(StreamId))
