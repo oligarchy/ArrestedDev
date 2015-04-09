@@ -40,6 +40,7 @@ namespace EventStore.Consumer
         {
             Console.WriteLine("RECEIVED: " + msg.Name);
             Guid StreamId = Guid.NewGuid();
+            msg.StreamId = StreamId;
 
             var store = Wireup.Init()
                .UsingInMemoryPersistence()
