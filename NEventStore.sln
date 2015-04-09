@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NEventStoreTest", "NEventStore\NEventStoreTest.csproj", "{51E9FC42-5825-4B33-85DF-DBF87733FAA0}"
 EndProject
@@ -18,15 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Consumer", "EventStore.Consumer\EventStore.Consumer.csproj", "{65F1A204-2FF9-4B1E-A2D1-532CB5130BCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Common", "EventStore.Common\EventStore.Common.csproj", "{5ABAC158-6F4F-4E73-AEE7-21CBA7A28F4F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{460FD7D6-79B3-4917-833E-70B3A2BF300D}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Etl", "EventStore.Etl\EventStore.Etl.csproj", "{C5ED6E1E-83AA-4526-97C9-3EBA0AB56980}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +41,6 @@ Global
 		{5ABAC158-6F4F-4E73-AEE7-21CBA7A28F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ABAC158-6F4F-4E73-AEE7-21CBA7A28F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ABAC158-6F4F-4E73-AEE7-21CBA7A28F4F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5ED6E1E-83AA-4526-97C9-3EBA0AB56980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5ED6E1E-83AA-4526-97C9-3EBA0AB56980}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5ED6E1E-83AA-4526-97C9-3EBA0AB56980}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5ED6E1E-83AA-4526-97C9-3EBA0AB56980}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
