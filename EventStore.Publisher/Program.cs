@@ -21,9 +21,33 @@ namespace EventStore.Publisher
 
         static void Main(string[] args)
         {
+            Menu();
+        }
+
+        private static void Menu()
+        {
+            Console.WriteLine("Please select a menu option:");
+            Console.WriteLine("1 - Send Message");
+            Console.WriteLine("x - Exit");
+            string selection = Console.ReadLine();
+
+            switch (selection)
+            {
+                case "1": 
+                    ComposeMessage();
+                    break;
+                case "x" :
+                    return;
+                default :
+                    return;
+            };
+        }
+
+        private static void ComposeMessage()
+        {
             TestMessage test = new TestMessage()
             {
-                MessageText = "hello there"
+                MessageText = DateTime.Now.ToString()
             };
 
             List<TestMessage> events = new List<TestMessage>()
@@ -32,6 +56,7 @@ namespace EventStore.Publisher
             };
 
             DispatchEvents<TestMessage>(events);
+            Menu();
         }
 
         private static void DispatchEvents<T>(List<T> EventList) where T : class

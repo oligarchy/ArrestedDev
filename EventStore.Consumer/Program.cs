@@ -14,6 +14,11 @@ namespace EventStore.Consumer
 {
     class Program
     {
+        private static readonly byte[] EncryptionKey = new byte[]
+        {
+            0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf
+        };
+
         static void Main(string[] args)
         {
             Console.WriteLine("MESSAGE CONSUMER START");
@@ -30,11 +35,6 @@ namespace EventStore.Consumer
                 });
             });
         }
-
-        private static readonly byte[] EncryptionKey = new byte[]
-        {
-            0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf
-        };
 
         private static void ListenAndPersist()
         {
