@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StepEventStoreWrite2.cs" />
     <Compile Include="StepConsoleWrite.cs" />
     <Compile Include="StepEventStoreWrite.cs" />
     <Compile Include="StepHospitalDataFileImport.cs" />

@@ -35,7 +35,7 @@ namespace EventStore.Data
                    .WithDialect(new MsSqlDialect())
                    .EnlistInAmbientTransaction() // two-phase commit
                    .InitializeStorageEngine()
-                   .UsingJsonSerialization()
+                   .UsingBinarySerialization()
                        .Compress()
                        .EncryptWith(EncryptionKey)
                .HookIntoPipelineUsing(new[] { new AuthorizationPipelineHook() })
@@ -50,10 +50,12 @@ namespace EventStore.Data
         public void Insert<T>(T obj) where T : AbstractEventObject
         {
             var collection = _db.GetCollection<T>(typeof(T).ToString());
-            collection.InsertOneAsync(obj);
+            obj.UpdateIndexes(collection.Indexes);
+            var task = collection.ReplaceOneAsync(x => x.Id == obj.Id, obj, new UpdateOptions{IsUpsert = true});
+            task.Wait();
 
             Guid streamId = obj.StreamId;
-            using (var stream = _store.CreateStream(streamId))
+            using (var stream = _store.OpenStream(streamId, 0))
             {
                 stream.Add(new EventMessage { Body = obj });
                 stream.CommitChanges(Guid.NewGuid());

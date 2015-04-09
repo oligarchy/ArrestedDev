@@ -28,7 +28,7 @@ namespace EventStore.Etl
             while (reader.ReadNextRecord())
             {
                 var row = new Row();
-                row["Id"] = reader["Provider ID"];
+                row["HospitalId"] = reader["Provider ID"];
                 row["Name"] = reader["Hospital Name"];
                 row["Address"] = reader["Address"];
                 row["City"] = reader["City"];
