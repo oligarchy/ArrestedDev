@@ -87,7 +87,7 @@ namespace EventStore.Consumer
             //}
         }
 
-        private static void Replay()
+        private static void Replay(Guid StreamId)
         {
 
         }
