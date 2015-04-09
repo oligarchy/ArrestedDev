@@ -70,7 +70,6 @@
     <Compile Include="CompareReport.cs" />
     <Compile Include="Hospital.cs" />
     <Compile Include="AuthorizationPipelineHook.cs" />
-    <Compile Include="MassTransitPublisher.cs" />
     <Compile Include="Messages\TestMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyCompare.cs" />

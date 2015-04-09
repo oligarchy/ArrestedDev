@@ -8,15 +8,11 @@ namespace EventStore.Common
 {
     public class CompareReport
     {
-        public List<string> PropertiesAdded { get; set; }
-        public List<string> PropertiesRemoved { get; set; }
-        public Dictionary<string, string[]> PropertiesChanged { get; set; }
+        public Dictionary<string, object[]> PropertiesChanged { get; set; }
 
         public CompareReport()
         {
-            PropertiesAdded = new List<string>();
-            PropertiesChanged = new Dictionary<string, string[]>();
-            PropertiesRemoved = new List<string>();
+            PropertiesChanged = new Dictionary<string, object[]>();
         }
     }
 }
