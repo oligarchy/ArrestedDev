@@ -49,7 +49,7 @@ namespace EventStore.Publisher
                 CountyName = "Alleghenny",
                 EmergencyServices = true,
                 Name = "UPMC Presby", 
-                Id = "PBY",
+                HospitalId = "PBY",
                 Ownership = "All your city are belong to us",
                 PhoneNumber = "412-555-1212",
                 State = "PA",
