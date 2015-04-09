@@ -16,6 +16,19 @@ namespace EventStore.Consumer
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("MESSAGE CONSUMER START");
+            Console.WriteLine("Waiting on incoming messages...");
+            Console.WriteLine("---------------------------------------------------------------------");
+
+            var bus = ServiceBusFactory.New(sbc =>
+            {
+                sbc.ReceiveFrom("rabbitmq://localhost/queue");
+                sbc.UseRabbitMq();
+                sbc.Subscribe(subs =>
+                {
+                    subs.Handler<TestMessage>(msg => Console.WriteLine(msg.MessageText));
+                });
+            });
         }
 
         private static readonly byte[] EncryptionKey = new byte[]
