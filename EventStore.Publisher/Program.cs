@@ -28,7 +28,6 @@ namespace EventStore.Publisher
         {
             Console.WriteLine("Please select a menu option:");
             Console.WriteLine("1 - Send Message");
-            Console.WriteLine("x - Exit");
             string selection = Console.ReadLine();
 
             switch (selection)
@@ -36,8 +35,6 @@ namespace EventStore.Publisher
                 case "1": 
                     ComposeMessage();
                     break;
-                case "x" :
-                    return;
                 default :
                     return;
             };
@@ -45,17 +42,27 @@ namespace EventStore.Publisher
 
         private static void ComposeMessage()
         {
-            TestMessage test = new TestMessage()
+            Hospital test = new Hospital()
             {
-                MessageText = DateTime.Now.ToString()
+                Address = "Lothrop Street",
+                City = "Pittsburgh",
+                CountyName = "Alleghenny",
+                EmergencyServices = true,
+                Name = "UPMC Presby", 
+                Id = "PBY",
+                Ownership = "All your city are belong to us",
+                PhoneNumber = "412-555-1212",
+                State = "PA",
+                Type = "Hospital",
+                ZipCode = "12345"
             };
 
-            List<TestMessage> events = new List<TestMessage>()
+            List<Hospital> events = new List<Hospital>()
             {
                 test
             };
 
-            DispatchEvents<TestMessage>(events);
+            DispatchEvents<Hospital>(events);
             Menu();
         }
 

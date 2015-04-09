@@ -31,19 +31,18 @@ namespace EventStore.Consumer
                 sbc.UseRabbitMq();
                 sbc.Subscribe(subs =>
                 {
-                    subs.Handler<TestMessage>(msg => Console.WriteLine(msg.MessageText));
+                    subs.Handler<Hospital>(msg => ListenAndPersist(msg));
                 });
             });
         }
 
-        private static void ListenAndPersist()
+        private static void ListenAndPersist(Hospital msg)
         {
-            var EventList = new List<TestMessage>();
-            
+            Console.WriteLine("RECEIVED: " + msg.Name);
             Guid StreamId = Guid.NewGuid();
+            msg.StreamId = StreamId;
 
             var store = Wireup.Init()
-               .LogToOutputWindow()
                .UsingInMemoryPersistence()
                .UsingSqlPersistence("EventStoreConnection") // Connection string is in app.config
                    .WithDialect(new MsSqlDialect())
@@ -62,23 +61,12 @@ namespace EventStore.Consumer
             {
                 using (var stream = store.CreateStream(StreamId))
                 {
-                    foreach (var evnt in EventList)
+                    stream.Add(new EventMessage()
                     {
-                        stream.Add(new EventMessage()
-                        {
-                            Body = evnt
-                        });
-                    }
+                        Body = msg
+                    });
 
                     stream.CommitChanges(StreamId);
-                }
-
-                using (var stream = store.OpenStream(StreamId, 0, int.MinValue))
-                {
-                    foreach (var evnt in stream.CommittedEvents)
-                    {
-                        Console.WriteLine(evnt.Body);
-                    }
                 }
             }
         }
@@ -97,6 +85,11 @@ namespace EventStore.Consumer
             //{
             //    Console.WriteLine(Resources.UnableToDispatch);
             //}
+        }
+
+        private static void Replay(Guid StreamId)
+        {
+
         }
     }
 }
