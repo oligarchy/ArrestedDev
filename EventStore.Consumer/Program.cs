@@ -31,14 +31,14 @@ namespace EventStore.Consumer
                 sbc.UseRabbitMq();
                 sbc.Subscribe(subs =>
                 {
-                    subs.Handler<TestMessage>(msg => ListenAndPersist(msg));
+                    subs.Handler<Hospital>(msg => ListenAndPersist(msg));
                 });
             });
         }
 
-        private static void ListenAndPersist(TestMessage msg)
+        private static void ListenAndPersist(Hospital msg)
         {
-            Console.WriteLine("RECEIVED: " + msg.MessageText);
+            Console.WriteLine("RECEIVED: " + msg.Name);
             Guid StreamId = Guid.NewGuid();
 
             var store = Wireup.Init()
@@ -84,6 +84,11 @@ namespace EventStore.Consumer
             //{
             //    Console.WriteLine(Resources.UnableToDispatch);
             //}
+        }
+
+        private static void Replay()
+        {
+
         }
     }
 }
