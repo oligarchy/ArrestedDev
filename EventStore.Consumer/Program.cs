@@ -38,8 +38,7 @@ namespace EventStore.Consumer
 
         private static void ListenAndPersist(TestMessage msg)
         {
-            var EventList = new List<TestMessage>();
-            
+            Console.WriteLine("RECEIVED: " + msg.MessageText);
             Guid StreamId = Guid.NewGuid();
 
             var store = Wireup.Init()
@@ -67,14 +66,6 @@ namespace EventStore.Consumer
                     });
 
                     stream.CommitChanges(StreamId);
-                }
-
-                using (var stream = store.OpenStream(StreamId, 0, int.MinValue))
-                {
-                    foreach (var evnt in stream.CommittedEvents)
-                    {
-                        Console.WriteLine(evnt.Body);
-                    }
                 }
             }
         }

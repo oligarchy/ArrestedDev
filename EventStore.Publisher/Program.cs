@@ -28,7 +28,6 @@ namespace EventStore.Publisher
         {
             Console.WriteLine("Please select a menu option:");
             Console.WriteLine("1 - Send Message");
-            Console.WriteLine("x - Exit");
             string selection = Console.ReadLine();
 
             switch (selection)
@@ -36,8 +35,6 @@ namespace EventStore.Publisher
                 case "1": 
                     ComposeMessage();
                     break;
-                case "x" :
-                    return;
                 default :
                     return;
             };
