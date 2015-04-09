@@ -31,19 +31,18 @@ namespace EventStore.Consumer
                 sbc.UseRabbitMq();
                 sbc.Subscribe(subs =>
                 {
-                    subs.Handler<TestMessage>(msg => Console.WriteLine(msg.MessageText));
+                    subs.Handler<TestMessage>(msg => ListenAndPersist(msg));
                 });
             });
         }
 
-        private static void ListenAndPersist()
+        private static void ListenAndPersist(TestMessage msg)
         {
             var EventList = new List<TestMessage>();
             
             Guid StreamId = Guid.NewGuid();
 
             var store = Wireup.Init()
-               .LogToOutputWindow()
                .UsingInMemoryPersistence()
                .UsingSqlPersistence("EventStoreConnection") // Connection string is in app.config
                    .WithDialect(new MsSqlDialect())
@@ -62,13 +61,10 @@ namespace EventStore.Consumer
             {
                 using (var stream = store.CreateStream(StreamId))
                 {
-                    foreach (var evnt in EventList)
+                    stream.Add(new EventMessage()
                     {
-                        stream.Add(new EventMessage()
-                        {
-                            Body = evnt
-                        });
-                    }
+                        Body = msg
+                    });
 
                     stream.CommitChanges(StreamId);
                 }
