@@ -38,6 +38,9 @@
     <Reference Include="MassTransit">
       <HintPath>..\packages\MassTransit.2.9.9\lib\net40\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\MongoDB.Bson.2.0.0\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="NEventStore">
       <HintPath>..\ThirdParty\NEventStore.dll</HintPath>
     </Reference>
@@ -63,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractEventObject.cs" />
     <Compile Include="Hospital.cs" />
     <Compile Include="AuthorizationPipelineHook.cs" />
     <Compile Include="MassTransitPublisher.cs" />

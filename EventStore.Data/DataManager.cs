@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 using EventStore.Common;
+
+using MongoDB.Driver;
 
 using NEventStore;
 using NEventStore.Dispatcher;
@@ -20,6 +23,8 @@ namespace EventStore.Data
         };
 
         private IStoreEvents _store;
+
+        private IMongoDatabase _db; 
 
         public DataManager()
         {
@@ -37,24 +42,40 @@ namespace EventStore.Data
                .UsingSynchronousDispatchScheduler()
                    .DispatchTo(new DelegateMessageDispatcher(DispatchCommit))
                .Build();
+
+            var client = new MongoClient("mongodb://localhost");
+            _db = client.GetDatabase("EventStore");
         }
 
-        public void Insert(Hospital hospital)
+        public void Insert<T>(T obj) where T : AbstractEventObject
         {
-            Guid StreamId = Guid.NewGuid();
-            using (var stream = _store.CreateStream(StreamId))
-            {
-                stream.Add(new EventMessage { Body = hospital });
-                stream.CommitChanges(StreamId);
-            }
+            var collection = _db.GetCollection<T>(typeof(T).ToString());
+            collection.InsertOneAsync(obj);
 
-            using (var stream = _store.OpenStream(StreamId, 0, int.MinValue))
+            Guid streamId = obj.StreamId;
+            using (var stream = _store.CreateStream(streamId))
             {
-                foreach (var evnt in stream.CommittedEvents)
+                stream.Add(new EventMessage { Body = obj });
+                stream.CommitChanges(Guid.NewGuid());
+            }
+        }
+
+        public IEnumerable<T> GetHistory<T>(T obj) where T : AbstractEventObject
+        {
+            Guid streamId = obj.StreamId;
+            using (var stream = _store.OpenStream(streamId, 0))
+            {
+                foreach (var evt in stream.CommittedEvents)
                 {
-                    Console.WriteLine(evnt.Body);
+                    yield return (T)evt.Body;
                 }
             }
+        }
+
+        public T Get<T>(Expression<Func<T,bool>> query) where T : AbstractEventObject
+        {
+            var collection = _db.GetCollection<T>(typeof(T).ToString());
+            return collection.Find(query).FirstAsync().Result;
         }
 
         private static void DispatchCommit(ICommit commit)
