@@ -27,25 +27,19 @@ namespace EventStore.Publisher
         {
             Guid StreamId = Guid.NewGuid();
 
-            ServiceBusFactory.New(sbc =>
+            var bus = ServiceBusFactory.New(sbc =>
             {
-                sbc.UseRabbitMq();
-            });
-
-            /*Bus.Initialize(sbc =>
-            {
-                sbc.UseMsmq();
-                sbc.VerifyMsmqConfiguration();
-                sbc.UseMulticastSubscriptionClient();
-                sbc.ReceiveFrom("msmq://localhost/test_queue");
-                sbc.Subscribe(subs=>
+                sbc.UseRabbitMq(r =>
                 {
-                    subs.Handler<YourMessage>(msg=>Console.WriteLine(msg.Text));
+                    r.ConfigureHost(new Uri("rabbitmq://localhost/vhost/queue"), h =>
+                    {
+                        h.SetUsername("username");
+                        h.SetPassword("password");
+                    });
                 });
+
             });
 
-        Bus.Instance.Publish(new YourMessage{Text = "Hi"});
-            */
             var store = Wireup.Init()
                .LogToOutputWindow()
                .UsingInMemoryPersistence()
