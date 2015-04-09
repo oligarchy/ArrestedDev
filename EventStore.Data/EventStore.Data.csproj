@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C5ED6E1E-83AA-4526-97C9-3EBA0AB56980}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{D4CED40C-6856-4427-8844-DCC0C5127799}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EventStore.Etl</RootNamespace>
-    <AssemblyName>EventStore.Etl</AssemblyName>
+    <RootNamespace>EventStore.Data</RootNamespace>
+    <AssemblyName>EventStore.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,46 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Boo.Lang">
-      <HintPath>..\packages\Boo.0.9.4\lib\Boo.Lang.dll</HintPath>
-    </Reference>
-    <Reference Include="Boo.Lang.Compiler">
-      <HintPath>..\packages\Boo-Compiler.0.9.4\lib\Boo.Lang.Compiler.dll</HintPath>
-    </Reference>
-    <Reference Include="Boo.Lang.Parser">
-      <HintPath>..\packages\Boo-Compiler.0.9.4\lib\Boo.Lang.Parser.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="FileHelpers">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\FileHelpers.dll</HintPath>
-    </Reference>
-    <Reference Include="FileHelpers.ExcelStorage">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\FileHelpers.ExcelStorage.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.Excel">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Excel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Interop.Office">
-      <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Office.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="LumenWorks.Framework.IO">
-      <HintPath>..\packages\LumenWorksCsvReader.3.8.3\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
-    </Reference>
     <Reference Include="NEventStore">
       <HintPath>..\packages\NEventStore.5.1.1\lib\net40\NEventStore.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.DSL">
-      <HintPath>..\packages\RhinoDSL.1.0.0\lib\Rhino.DSL.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Etl.Core">
-      <HintPath>..\packages\Rhino-Etl.1.2.5.0\lib\net35\Rhino.Etl.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Etl.Dsl">
-      <HintPath>..\packages\Rhino-Etl.1.2.5.0\lib\net35\Rhino.Etl.Dsl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -84,26 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StepConsoleWrite.cs" />
-    <Compile Include="StepEventStoreWrite.cs" />
-    <Compile Include="StepHospitalDataFileImport.cs" />
-    <Compile Include="HospitalEtlProcess.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="DataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StepMapHospital.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventStore.Common\EventStore.Common.csproj">
       <Project>{5abac158-6f4f-4e73-aee7-21cba7a28f4f}</Project>
       <Name>EventStore.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EventStore.Data\EventStore.Data.csproj">
-      <Project>{d4ced40c-6856-4427-8844-dcc0c5127799}</Project>
-      <Name>EventStore.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

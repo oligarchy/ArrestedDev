@@ -4,22 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using EventStore.Common;
+using EventStore.Data;
+
 using Rhino.Etl.Core;
 using Rhino.Etl.Core.Operations;
 
 namespace EventStore.Etl
 {
-    public class ConsoleWrite : AbstractOperation
+    public class StepEventStoreWrite : AbstractOperation
     {
+        public DataManager _Manager;
+
+        public StepEventStoreWrite()
+        {
+            _Manager = new DataManager();
+        }
+
         public override IEnumerable<Row> Execute(IEnumerable<Row> rows)
         {
             foreach (var row in rows)
             {
-                foreach (var column in row.Columns.OrderBy(s => s))
-                {
-                    Console.WriteLine(column + ": " + row[column]);
-                }
-                Console.WriteLine();
+                _Manager.Insert((Hospital)row["hospital"]);
                 yield return row;
             }
         }

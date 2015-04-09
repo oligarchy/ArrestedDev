@@ -15,18 +15,9 @@ namespace EventStore.Etl
             var process = new HospitalEtlProcess();
             var sw = new Stopwatch();
             sw.Start();
-            ThreadPool.QueueUserWorkItem(
-                delegate
-                {
-                    while (true)
-                    {
-                        Thread.Sleep(1000);
-                        Console.WriteLine(sw.ElapsedMilliseconds);
-                    }
-                }
-            );
             process.Execute();
             sw.Stop();
+            Console.WriteLine(sw.ElapsedMilliseconds);
             Console.Read();
         }
     }
