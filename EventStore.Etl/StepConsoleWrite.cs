@@ -26,7 +26,16 @@ namespace EventStore.Etl
             foreach (var row in rows)
             {
                 var hospital = _Manager.Get<Hospital>(h => h.Name == ((Hospital)row["hospital"]).Name);
-                Console.WriteLine(hospital.Name);
+                var history = _Manager.GetHistory(hospital);
+
+                var h1 = history.First();
+                var h2 = history.Last();
+
+                foreach (var diff in h1.GetDelta(h2))
+                {
+                    Console.WriteLine("{0}: {1} => {2}", diff.Prop, diff.valA, diff.valB);
+                }
+                
                 yield return row;
             }
         }

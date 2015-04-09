@@ -22,7 +22,7 @@ namespace EventStore.Etl
                 var hospital = new Hospital();
                 var rtn = new Row();
 
-                hospital.Id = row["Id"].ToString();
+                hospital.HospitalId = row["HospitalId"].ToString();
                 hospital.Name = row["Name"].ToString();
                 hospital.Address = row["Address"].ToString();
                 hospital.City = row["City"].ToString();

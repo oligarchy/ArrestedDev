@@ -7,17 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace EventStore.Common
 {
+    [Serializable]
     public abstract class AbstractEventObject
     {
-        public ObjectId _MongoKey { get; set; } 
+        public ObjectId Id { get; set; }
         public Guid StreamId { get; set; }
 
         protected AbstractEventObject()
         {
             StreamId = Guid.NewGuid();
+            Id = ObjectId.GenerateNewId();
         }
 
         private PropertyInfo[] _PropertyInfos = null;
@@ -36,6 +39,34 @@ namespace EventStore.Common
             }
 
             return sb.ToString();
+        }
+
+        public abstract void UpdateIndexes<T>(IMongoIndexManager<T> collection);
+
+        public List<Variance> GetDelta<T>(T val2) where T : AbstractEventObject
+        {
+            var variances = new List<Variance>();
+            FieldInfo[] fi = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+            foreach (FieldInfo f in fi)
+            {
+                Variance v = new Variance
+                                 {
+                                     Prop = f.Name, 
+                                     valA = f.GetValue(this), 
+                                     valB = f.GetValue(val2)
+                                 };
+
+                if (!v.valA.Equals(v.valB))
+                    variances.Add(v);
+            }
+            return variances;
+        }
+
+        public class Variance
+        {
+            public string Prop { get; set; }
+            public object valA { get; set; }
+            public object valB { get; set; }
         }
     }
 }
