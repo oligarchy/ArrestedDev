@@ -13,11 +13,11 @@ using Rhino.Etl.Core.Operations;
 
 namespace EventStore.Etl
 {
-    public class DataFileImport : AbstractOperation
+    public class StepHospitalDataFileImport : AbstractOperation
     {
         private readonly string _filename;
 
-        public DataFileImport(string filename)
+        public StepHospitalDataFileImport(string filename)
         {
             _filename = filename;
         }
@@ -29,6 +29,17 @@ namespace EventStore.Etl
             {
                 var row = new Row();
                 row["Id"] = reader["Provider ID"];
+                row["Name"] = reader["Hospital Name"];
+                row["Address"] = reader["Address"];
+                row["City"] = reader["City"];
+                row["State"] = reader["State"];
+                row["ZipCode"] = reader["ZIP Code"];
+                row["CountyName"] = reader["County Name"];
+                row["PhoneNumber"] = reader["Phone Number"];
+                row["Type"] = reader["Hospital Type"];
+                row["Ownership"] = reader["Hospital Ownership"];
+                row["EmergencyServices"] = reader["Emergency Services"];
+
                 yield return row;
             }
         }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using CommonDomain.Persistence.EventStore;
+
 using Rhino.Etl.Core;
 
 namespace EventStore.Etl
@@ -12,8 +14,10 @@ namespace EventStore.Etl
     {
         protected override void Initialize()
         {
-            Register(new DataFileImport(@"../../../Data/Hospitals_2014.csv"));
-            Register(new ConsoleWrite());
+            Register(new StepHospitalDataFileImport(@"../../../Data/Hospitals_2014.csv"));
+            Register(new StepMapHospital());
+            Register(new StepConsoleWrite());
+            Register(new StepEventStoreWrite());
         }
     }
 }
