@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>f118ede2-e588-4ce4-8b61-6836cbc505ed</ProjectGuid>
+    <ProjectGuid>{65F1A204-2FF9-4B1E-A2D1-532CB5130BCA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EventStore.Consumer</RootNamespace>
