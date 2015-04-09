@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EventStore.Common;
+using EventStore.Common.Messages;
 using MassTransit;
 using NEventStore;
 using NEventStore.Dispatcher;
@@ -20,81 +21,33 @@ namespace EventStore.Publisher
 
         static void Main(string[] args)
         {
-            
+            TestMessage test = new TestMessage()
+            {
+                MessageText = "hello there"
+            };
+
+            List<TestMessage> events = new List<TestMessage>()
+            {
+                test
+            };
+
+            DispatchEvents<TestMessage>(events);
         }
 
-        private static void DispatchEvents<T>(List<T> EventList) where T : new()
+        private static void DispatchEvents<T>(List<T> EventList) where T : class
         {
             Guid StreamId = Guid.NewGuid();
 
             var bus = ServiceBusFactory.New(sbc =>
             {
-                sbc.UseRabbitMq(r =>
-                {
-                    r.ConfigureHost(new Uri("rabbitmq://localhost/vhost/queue"), h =>
-                    {
-                        h.SetUsername("username");
-                        h.SetPassword("password");
-                    });
-                });
-
+                sbc.ReceiveFrom("rabbitmq://localhost/queue");
+                sbc.UseRabbitMq();
             });
 
-            var store = Wireup.Init()
-               .LogToOutputWindow()
-               .UsingInMemoryPersistence()
-               .UsingSqlPersistence("EventStoreConnection") // Connection string is in app.config
-                   .WithDialect(new MsSqlDialect())
-                   .EnlistInAmbientTransaction() // two-phase commit
-                   .InitializeStorageEngine()
-                   .TrackPerformanceInstance("example")
-                   .UsingJsonSerialization()
-                       .Compress()
-                       .EncryptWith(EncryptionKey)
-               .HookIntoPipelineUsing(new[] { new AuthorizationPipelineHook() })
-               .UsingSynchronousDispatchScheduler()
-                   .DispatchTo(new DelegateMessageDispatcher(DispatchCommit))
-               .Build();
-            
-            using (store)
+            foreach (var msg in EventList)
             {
-                using (var stream = store.CreateStream(StreamId))
-                {
-                    foreach (var evnt in EventList)
-                    {
-                        stream.Add(new EventMessage() 
-                        {
-                            Body = evnt
-                        });
-                    }
-
-                    stream.CommitChanges(StreamId);
-                }
-
-                using (var stream = store.OpenStream(StreamId, 0, int.MinValue))
-                {
-                    foreach (var evnt in stream.CommittedEvents)
-                    {
-                        Console.WriteLine(evnt.Body);
-                    }
-                }
+                bus.Publish(msg);
             }
-        }
-
-        private static void DispatchCommit(ICommit commit)
-        {
-            // This is where we'd hook into our messaging infrastructure, such as NServiceBus,
-            // MassTransit, WCF, or some other communications infrastructure.
-            // This can be a class as well--just implement IDispatchCommits.
-            //try
-            //{
-            //    foreach (var @event in commit.Events)
-            //        Console.WriteLine(Resources.MessagesDispatched + ((SomeDomainEvent)@event.Body).Value);
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine(Resources.UnableToDispatch);
-            //}
         }
     }
 }

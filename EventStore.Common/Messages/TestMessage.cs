@@ -8,6 +8,6 @@ namespace EventStore.Common.Messages
 {
     public class TestMessage
     {
-        string MessageText { get; set; }
+        public string MessageText { get; set; }
     }
 }
