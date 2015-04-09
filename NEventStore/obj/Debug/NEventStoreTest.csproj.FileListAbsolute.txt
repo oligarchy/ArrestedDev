@@ -21,3 +21,5 @@ C:\Agility.net\ArrestedDev\NEventStore\NEventStore\bin\Debug\RabbitMQ.Client.xml
 C:\Agility.net\ArrestedDev\NEventStore\NEventStore\obj\Debug\NEventStoreTest.exe
 C:\Agility.net\ArrestedDev\NEventStore\NEventStore\obj\Debug\NEventStoreTest.pdb
 C:\Agility.net\ArrestedDev\NEventStore\NEventStore\obj\Debug\NEventStoreTest.csprojResolveAssemblyReference.cache
+C:\Agility.net\ArrestedDev\NEventStore\NEventStore\bin\Debug\EventStore.Common.dll
+C:\Agility.net\ArrestedDev\NEventStore\NEventStore\bin\Debug\EventStore.Common.pdb

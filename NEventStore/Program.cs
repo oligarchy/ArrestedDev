@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventStore.Common;
 using MassTransit;
 using NEventStore.Dispatcher;
 using NEventStore.Persistence.Sql.SqlDialects;
@@ -26,10 +27,10 @@ namespace NEventStore
         private static void EventStoreTest()
         {
             Guid StreamId = Guid.NewGuid();
-            //var bus = ServiceBusFactory.New(sbc =>
-            //    {
+            var bus = ServiceBusFactory.New(sbc =>
+                {
 
-            //    });
+                });
 
             var store =  Wireup.Init()
                .LogToOutputWindow()
