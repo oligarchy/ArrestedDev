@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventStore.Common
 {
-    public class Hospital
+    public class Hospital : AbstractEventObject
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -20,23 +20,5 @@ namespace EventStore.Common
         public string Type { get; set; }
         public string Ownership { get; set; }
         public bool EmergencyServices { get; set; }
-
-        private PropertyInfo[] _PropertyInfos = null;
-
-        public override string ToString()
-        {
-            if (_PropertyInfos == null)
-                _PropertyInfos = this.GetType().GetProperties();
-
-            var sb = new StringBuilder();
-
-            foreach (var info in _PropertyInfos)
-            {
-                var value = info.GetValue(this, null) ?? "(null)";
-                sb.AppendLine(info.Name + ": " + value.ToString());
-            }
-
-            return sb.ToString();
-        }
     }
 }
