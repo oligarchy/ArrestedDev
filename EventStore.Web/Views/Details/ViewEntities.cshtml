@@ -1,7 +1,23 @@
-﻿
+﻿@model EventStore.Web.Models.ViewEntitiesModel
+
 @{
-    ViewBag.Title = "ViewEntities";
+    ViewBag.Title = "View Entities";
 }
 
-<h2>ViewEntities</h2>
+<br />
 
+<table cellpadding="15px">
+
+    @foreach (var hospital in Model.Hospitals)
+    {
+        <tr>
+            <td>
+                @hospital.Name
+            </td>
+            <td>
+                @Html.ActionLink("View", "ViewEntityDetails", new { EntityId = hospital.Id })
+            </td>
+        </tr>
+    }
+
+</table>

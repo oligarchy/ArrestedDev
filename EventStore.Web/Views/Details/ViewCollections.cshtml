@@ -1,7 +1,23 @@
-﻿
+﻿@model EventStore.Web.Models.ViewCollectionsModel
+
 @{
     ViewBag.Title = "View Collections";
 }
 
-<h2>ViewCollections</h2>
+<br />
 
+<table cellpadding="15px">
+
+    @foreach (var collectionName in Model.Collections)
+    {
+        <tr>
+            <td>
+                @collectionName
+            </td>  
+            <td>
+                @Html.ActionLink("View", "ViewEntities", new { CollectionName = collectionName })
+            </td>
+        </tr>
+    }
+
+</table>
