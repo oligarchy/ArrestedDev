@@ -26,5 +26,10 @@ namespace EventStore.ServiceBus
         {
             _bus.Publish(message);
         }
+
+        ~Publisher()
+        {
+            _bus.Dispose();
+        }
     }
 }

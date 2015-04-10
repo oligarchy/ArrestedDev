@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NEventStoreTest", "NEventStore\NEventStoreTest.csproj", "{51E9FC42-5825-4B33-85DF-DBF87733FAA0}"
 EndProject
@@ -31,8 +31,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Etl", "EventStore.Etl\EventStore.Etl.csproj", "{C5ED6E1E-83AA-4526-97C9-3EBA0AB56980}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.ServiceBus", "EventStore.ServiceBus\EventStore.ServiceBus.csproj", "{8C165887-D9F6-44A1-AC37-E7821E621594}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Web", "EventStore.Web\EventStore.Web.csproj", "{07F68C04-7893-40B7-8932-5A6D92244BF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +66,6 @@ Global
 		{8C165887-D9F6-44A1-AC37-E7821E621594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C165887-D9F6-44A1-AC37-E7821E621594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C165887-D9F6-44A1-AC37-E7821E621594}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07F68C04-7893-40B7-8932-5A6D92244BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07F68C04-7893-40B7-8932-5A6D92244BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07F68C04-7893-40B7-8932-5A6D92244BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07F68C04-7893-40B7-8932-5A6D92244BF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

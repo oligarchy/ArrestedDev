@@ -13,11 +13,11 @@ using Rhino.Etl.Core.Operations;
 
 namespace EventStore.Etl
 {
-    public class StepEventStoreWrite : AbstractOperation
+    public class StepPublish : AbstractOperation
     {
         public Publisher _Publisher;
 
-        public StepEventStoreWrite()
+        public StepPublish()
         {
             _Publisher = new Publisher();
         }

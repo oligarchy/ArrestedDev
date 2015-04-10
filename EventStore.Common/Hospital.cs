@@ -27,6 +27,7 @@ namespace EventStore.Common
         public string Type { get; set; }
         public string Ownership { get; set; }
         public bool EmergencyServices { get; set; }
+        public int LastImportYear { get; set; }
 
         private static bool indexesUpdated = false;
         private static readonly object IndexLock = new object();

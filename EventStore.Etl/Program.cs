@@ -12,13 +12,18 @@ namespace EventStore.Etl
     {
         static void Main(string[] args)
         {
-            var process = new HospitalEtlProcess();
-            var sw = new Stopwatch();
-            sw.Start();
-            process.Execute();
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds);
-            Console.Read();
+            List<string> filenames = new List<string>
+            {
+                @"../../../Data/Hospitals_2012.csv",
+                @"../../../Data/Hospitals_2013.csv",
+                @"../../../Data/Hospitals_2014.csv"
+            };
+
+            foreach (var filename in filenames)
+            {
+                var process = new HospitalEtlProcess(filename);
+                process.Execute();
+            }  
         }
     }
 }

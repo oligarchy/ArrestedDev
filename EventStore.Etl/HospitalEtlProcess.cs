@@ -12,11 +12,17 @@ namespace EventStore.Etl
 {
     public class HospitalEtlProcess : EtlProcess
     {
+        private string _filename;
+
+        public HospitalEtlProcess(string filename)
+        {
+            _filename = filename;
+        }
         protected override void Initialize()
         {
-            Register(new StepHospitalDataFileImport(@"../../../Data/Hospitals_2014.csv"));
+            Register(new StepHospitalDataFileImport(_filename));
             Register(new StepMapHospital());
-            Register(new StepEventStoreWrite());
+            Register(new StepPublish());
         }
     }
 }

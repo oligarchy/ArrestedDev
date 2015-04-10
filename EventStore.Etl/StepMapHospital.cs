@@ -33,6 +33,7 @@ namespace EventStore.Etl
                 hospital.Type = row["Type"].ToString();
                 hospital.Ownership = row["Ownership"].ToString();
                 hospital.EmergencyServices = row["EmergencyServices"].ToString() == "Yes";
+                hospital.LastImportYear = (int)row["LastImportYear"];
 
                 rtn["hospital"] = hospital;
                 yield return rtn;

@@ -74,7 +74,7 @@ namespace EventStore.Data
 
         public T Get(Expression<Func<T,bool>> query)
         {
-            return _collection.Find(query).FirstAsync().Result;
+            return _collection.Find(query).FirstOrDefaultAsync().Result;
         }
     }
 }

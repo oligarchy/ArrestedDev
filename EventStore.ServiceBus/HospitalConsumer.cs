@@ -22,6 +22,12 @@ namespace EventStore.ServiceBus
         {
             Console.WriteLine("RECEIVED: \r\n" + message.ToString());
 
+            var oldRecord = DataManager.Get(h => h.HospitalId == message.HospitalId);
+            if (oldRecord != null)
+            {
+                message.Id = oldRecord.Id;
+            }
+
             DataManager.Insert(message);
         }
     }
