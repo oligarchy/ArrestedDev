@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
 namespace EventStore.Common
@@ -14,13 +15,15 @@ namespace EventStore.Common
     [Serializable]
     public abstract class AbstractEventObject
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
         public Guid StreamId { get; set; }
 
         protected AbstractEventObject()
         {
             StreamId = Guid.NewGuid();
-            Id = ObjectId.GenerateNewId();
+            Id = ObjectId.GenerateNewId().ToString();
         }
 
         private PropertyInfo[] _PropertyInfos = null;

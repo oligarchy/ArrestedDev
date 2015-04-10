@@ -14,11 +14,6 @@ namespace EventStore.Publisher
 {
     class Program
     {
-        private static readonly byte[] EncryptionKey = new byte[]
-        {
-            0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf
-        };
-
         static void Main(string[] args)
         {
             Menu();
@@ -42,7 +37,7 @@ namespace EventStore.Publisher
 
         private static void ComposeMessage()
         {
-            Hospital test = new Hospital()
+            var test = new Hospital()
             {
                 Address = "Lothrop Street",
                 City = "Pittsburgh",
@@ -62,24 +57,13 @@ namespace EventStore.Publisher
                 test
             };
 
-            DispatchEvents<Hospital>(events);
-            Menu();
-        }
+            var publisher = new ServiceBus.Publisher();
 
-        private static void DispatchEvents<T>(List<T> EventList) where T : class
-        {
-            Guid StreamId = Guid.NewGuid();
-
-            var bus = ServiceBusFactory.New(sbc =>
+            foreach (var evt in events)
             {
-                sbc.ReceiveFrom("rabbitmq://localhost/queue");
-                sbc.UseRabbitMq();
-            });
-
-            foreach (var msg in EventList)
-            {
-                bus.Publish(msg);
+                publisher.Publish(evt);
             }
+            Menu();
         }
     }
 }
