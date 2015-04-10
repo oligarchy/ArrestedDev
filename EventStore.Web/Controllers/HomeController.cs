@@ -12,5 +12,10 @@ namespace EventStore.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Links()
+        {
+            return View();
+        }
     }
 }
