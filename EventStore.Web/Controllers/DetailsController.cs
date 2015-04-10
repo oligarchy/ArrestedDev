@@ -14,6 +14,8 @@ namespace EventStore.Web.Controllers
 {
     public class DetailsController : Controller
     {
+        private string DefaultEntityId = "55281c633b43353f608aceda";
+
         public ActionResult ViewCollections()
         {
             ViewCollectionsModel model = new ViewCollectionsModel();
@@ -76,7 +78,7 @@ namespace EventStore.Web.Controllers
 
             if (EntityId == null)
             {
-                EntityId = "5526dead3b433538081c8b25";
+                EntityId = this.DefaultEntityId;
             }
 
             var mongo = GetMongoDb();
@@ -92,6 +94,16 @@ namespace EventStore.Web.Controllers
 
         public ActionResult History(string CollectionName, string EntityId)
         {
+            if (CollectionName == null)
+            {
+                CollectionName = "EventStore.Common.Hospital";
+            }
+
+            if (EntityId == null)
+            {
+                EntityId = this.DefaultEntityId;
+            }
+
             ViewHistoryModel model = new ViewHistoryModel();
 
             Hospital current = getEntity(CollectionName, EntityId);
