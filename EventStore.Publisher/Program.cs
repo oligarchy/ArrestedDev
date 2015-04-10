@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EventStore.Common;
-using EventStore.Common.Messages;
 using MassTransit;
 using NEventStore;
 using NEventStore.Dispatcher;

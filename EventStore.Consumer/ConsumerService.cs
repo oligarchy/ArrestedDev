@@ -1,23 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Concurrency;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-using EventStore.Common;
+﻿using EventStore.Common;
 using EventStore.Data;
 using EventStore.ServiceBus;
-
-using Magnum;
-
 using MassTransit;
-using MassTransit.NinjectIntegration;
-
 using Ninject;
-using Ninject.Extensions.NamedScope;
-
 using Topshelf;
 
 namespace EventStore.Consumer
@@ -33,10 +18,13 @@ namespace EventStore.Consumer
                 sbc.ReceiveFrom("rabbitmq://localhost/queue");
                 sbc.UseRabbitMq();
                 sbc.Subscribe(subs => subs.Consumer<HospitalConsumer>(kernel));
+                sbc.Subscribe(subs => subs.Consumer<LoginConsumer>(kernel));
+                sbc.SetConcurrentConsumerLimit(1);
             }));
 
             kernel.Bind<HospitalConsumer>().ToSelf();
             kernel.Bind<DataManager<Hospital>>().ToSelf().InSingletonScope();
+            kernel.Bind<DataManager<Login>>().ToSelf().InSingletonScope();
 
             return true;
         }

@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using EventStore.Common;
-using EventStore.Common.Messages;
-using EventStore.Data;
 using EventStore.ServiceBus;
-
-using MassTransit;
-using NEventStore;
-using NEventStore.Dispatcher;
-using NEventStore.Persistence.Sql.SqlDialects;
-
 using Topshelf;
 
 namespace EventStore.Consumer
@@ -34,9 +21,11 @@ namespace EventStore.Consumer
                         Console.Clear();
                         Console.WriteLine("Consuming Messages\r\n"
                                         + "Time Spent: {0}ms\r\n"
-                                        + "Hospitals: {1}\r\n",
+                                        + "Hospitals: {1}\r\n"
+                                        + "Logins: {2}\r\n",
                                         sw.ElapsedMilliseconds,
-                                        ConsoleSpammer.Hospitals);
+                                        ConsoleSpammer.Hospitals,
+                                        ConsoleSpammer.Logins);
                     }
                 }
             );

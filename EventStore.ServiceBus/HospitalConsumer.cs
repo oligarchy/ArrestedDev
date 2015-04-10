@@ -26,6 +26,7 @@ namespace EventStore.ServiceBus
             if (oldRecord != null)
             {
                 message.Id = oldRecord.Id;
+                message.StreamId = oldRecord.StreamId;
             }
 
             DataManager.Insert(message);

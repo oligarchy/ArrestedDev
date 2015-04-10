@@ -13,5 +13,8 @@ namespace EventStore.Etl
         public static int StepHospitalDataFileImport { get; set; }
         public static int StepMapHospital { get; set; }
         public static int StepPublish { get; set; }
+        public static int StepLoginDataFileImport { get; set; }
+        public static int StepMapLogin { get; set; }
+        public static int StepPublishLogin { get; set; }
     }
 }

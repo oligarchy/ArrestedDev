@@ -85,12 +85,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleSpammer.cs" />
-    <Compile Include="StepPublish.cs" />
-    <Compile Include="StepHospitalDataFileImport.cs" />
-    <Compile Include="HospitalEtlProcess.cs" />
+    <Compile Include="HospitalEtl\StepPublish.cs" />
+    <Compile Include="HospitalEtl\StepHospitalDataFileImport.cs" />
+    <Compile Include="HospitalEtl\HospitalEtlProcess.cs" />
+    <Compile Include="LoginEtl\LoginEtlProcess.cs" />
+    <Compile Include="LoginEtl\StepLoginDataFileImport.cs" />
+    <Compile Include="LoginEtl\StepMapLogin.cs" />
+    <Compile Include="LoginEtl\StepPublish.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StepMapHospital.cs" />
+    <Compile Include="HospitalEtl\StepMapHospital.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
