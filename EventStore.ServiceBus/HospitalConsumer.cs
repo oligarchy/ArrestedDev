@@ -20,7 +20,7 @@ namespace EventStore.ServiceBus
 
         public void Consume(Hospital message)
         {
-            Console.WriteLine("RECEIVED: \r\n" + message.ToString());
+            ConsoleSpammer.Hospitals++;
 
             var oldRecord = DataManager.Get(h => h.HospitalId == message.HospitalId);
             if (oldRecord != null)
