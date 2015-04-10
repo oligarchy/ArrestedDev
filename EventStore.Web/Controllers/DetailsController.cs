@@ -127,6 +127,23 @@ namespace EventStore.Web.Controllers
             return View(model);
         }
 
+        public ActionResult LoginHistory()
+        {
+            LoginHistoryModel model = new LoginHistoryModel();
+
+            var mongo = GetMongoDb();
+            IMongoCollection<Login> collection = mongo.GetCollection<Login>("EventStore.Common.Login");
+            var results = collection.FindAsync(x => x.Id != null);
+            results.Wait();
+
+            var docs = results.Result.ToListAsync();
+            docs.Wait();
+
+            model.Logins = docs.Result.ToList();
+
+            return View(model);
+        }
+
         private IMongoDatabase GetMongoDb()
         {
             var client = new MongoClient();

@@ -135,6 +135,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginHistoryModel.cs" />
     <Compile Include="Models\ViewCollectionsModel.cs" />
     <Compile Include="Models\ViewEntitiesModel.cs" />
     <Compile Include="Models\ViewEntityDetailsModel.cs" />
@@ -175,6 +176,7 @@
     <Content Include="Views\Details\ViewEntityDetails.cshtml" />
     <Content Include="Views\Home\Links.cshtml" />
     <Content Include="Views\Details\History.cshtml" />
+    <Content Include="Views\Details\LoginHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventStore.Common\EventStore.Common.csproj">
