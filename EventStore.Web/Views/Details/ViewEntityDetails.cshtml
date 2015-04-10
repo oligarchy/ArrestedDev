@@ -9,6 +9,12 @@
 <table cellpadding="15px">
 
     <tr>
+        <td colspan="2">
+            @Html.ActionLink("View History", "History", new { CollectionName = "", EntityId = Model.HospitalDetails.Id })
+        </td>
+    </tr>
+
+    <tr>
         <td><strong>Id: </strong></td>
         <td>@Model.HospitalDetails.Id</td>
     </tr>

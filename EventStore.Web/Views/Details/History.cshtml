@@ -1,0 +1,109 @@
+﻿@model EventStore.Web.Models.ViewHistoryModel
+
+@{
+    ViewBag.Title = "View Entity History";
+}
+
+<br />
+
+<table cellpadding="15px">
+
+    <tr>
+        <td></td>
+        <td>Historical Value</td>
+        <td>Current Value</td>
+    </tr>
+
+    @foreach (var histItem in Model.HospitalHistory)
+    {
+        <tr>
+            <td><strong>Id: </strong></td>
+            <td>@histItem.Id</td>
+            <td>@Model.Current.Id</td>
+        </tr>
+
+        <tr>
+            <td><strong>Stream Id: </strong></td>
+            <td>@histItem.StreamId.ToString()</td>
+            <td>@Model.Current.StreamId.ToString()</td>
+        </tr>
+
+        <tr>
+            <td><strong>Hospital Id: </strong></td>
+            <td>@histItem.HospitalId</td>
+            <td>@Model.Current.HospitalId</td>
+        </tr>
+
+        <tr>
+            <td><strong>Name: </strong></td>
+            <td>@histItem.Name</td>
+            <td>@Model.Current.Name</td>
+        </tr>
+
+        <tr>
+            <td><strong>Address: </strong></td>
+            <td>@histItem.Address</td>
+            <td>@Model.Current.Address</td>
+        </tr>
+
+        <tr>
+            <td><strong>City: </strong></td>
+            <td>@histItem.City</td>
+            <td>@Model.Current.City</td>
+        </tr>
+
+        <tr>
+            <td><strong>State: </strong></td>
+            <td>@histItem.State</td>
+            <td>@Model.Current.State</td>
+        </tr>
+
+        <tr>
+            <td><strong>ZipCode: </strong></td>
+            <td>@histItem.ZipCode</td>
+            <td>@Model.Current.ZipCode</td>
+        </tr>
+
+        <tr>
+            <td><strong>County: </strong></td>
+            <td>@histItem.CountyName</td>
+            <td>@Model.Current.CountyName</td>
+        </tr>
+
+        <tr>
+            <td><strong>Phone Number: </strong></td>
+            <td>@histItem.PhoneNumber</td>
+            <td>@Model.Current.PhoneNumber</td>
+        </tr>
+
+        <tr>
+            <td><strong>Type: </strong></td>
+            <td>@histItem.Type</td>
+            <td>@Model.Current.Type</td>
+        </tr>
+
+        <tr>
+            <td><strong>Ownership: </strong></td>
+            <td>@histItem.Ownership</td>
+            <td>@Model.Current.Ownership</td>
+        </tr>
+
+        <tr>
+            <td><strong>Emergency Services: </strong></td>
+            <td>@histItem.EmergencyServices.ToString()</td>
+            <td>@Model.Current.EmergencyServices.ToString()</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <hr />
+            </td>
+        </tr>
+    }
+
+
+    <tr>
+        <td colspan="3">
+            @Html.ActionLink("<< Back to collection", "ViewEntities", new { CollectionName = Model.CollectionName })
+        </td>
+    </tr>
+</table>

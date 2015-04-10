@@ -51,6 +51,10 @@
     <Reference Include="MongoDB.Driver.Core">
       <HintPath>..\packages\MongoDB.Driver.Core.2.0.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
+    <Reference Include="NEventStore, Version=5.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NEventStore.5.1.1\lib\net40\NEventStore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -134,6 +138,7 @@
     <Compile Include="Models\ViewCollectionsModel.cs" />
     <Compile Include="Models\ViewEntitiesModel.cs" />
     <Compile Include="Models\ViewEntityDetailsModel.cs" />
+    <Compile Include="Models\ViewHistoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +174,7 @@
     <Content Include="Views\Details\ViewEntities.cshtml" />
     <Content Include="Views\Details\ViewEntityDetails.cshtml" />
     <Content Include="Views\Home\Links.cshtml" />
+    <Content Include="Views\Details\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventStore.Common\EventStore.Common.csproj">
