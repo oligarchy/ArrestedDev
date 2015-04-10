@@ -15,6 +15,7 @@ namespace EventStore.Web.Controllers
     public class DetailsController : Controller
     {
         private string DefaultEntityId = "55281c633b43353f608aceda";
+        private int PageSize = 100;
 
         public ActionResult ViewCollections()
         {
@@ -38,6 +39,13 @@ namespace EventStore.Web.Controllers
 
         public ActionResult ViewEntities(string CollectionName)
         {
+            return ViewEntities(CollectionName, 0);
+        }
+
+        public ActionResult ViewEntities(string CollectionName, int Page)
+        {
+            int skip = 0;
+
             if (CollectionName == null)
             {
                 CollectionName = "EventStore.Common.Hospital";
@@ -53,7 +61,7 @@ namespace EventStore.Web.Controllers
             var docs = results.Result.ToListAsync();
             docs.Wait();
 
-            model.Hospitals = docs.Result.Take(50).ToList();
+            model.Hospitals = docs.Result.Skip(skip).Take(PageSize).ToList();
             model.CollectionName = CollectionName;
 
             return View(model);
