@@ -1,0 +1,28 @@
+﻿@model EventStore.Web.Models.LoginHistoryModel
+
+@{
+    ViewBag.Title = "Login History";
+}
+
+<br />
+
+<table cellpadding="15px">
+
+    @foreach (var login in Model.Logins)
+    {
+        <tr>
+            <td>
+                @login.UserName
+            </td>
+            <td>
+                @login.LastLogin
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+    }
+
+</table>
