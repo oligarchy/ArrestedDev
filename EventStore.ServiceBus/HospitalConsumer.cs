@@ -11,12 +11,18 @@ namespace EventStore.ServiceBus
 {
     public class HospitalConsumer : Consumes<Hospital>.All
     {
+        private DataManager<Hospital> DataManager;
+
+        public HospitalConsumer(DataManager<Hospital> dataManager)
+        {
+            DataManager = dataManager;
+        }
+
         public void Consume(Hospital message)
         {
             Console.WriteLine("RECEIVED: \r\n" + message.ToString());
 
-            DataManager dataManager = new DataManager();
-            dataManager.Insert(message);
+            DataManager.Insert(message);
         }
     }
 }

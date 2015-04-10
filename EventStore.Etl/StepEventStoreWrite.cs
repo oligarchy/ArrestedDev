@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using EventStore.Common;
 using EventStore.Data;
+using EventStore.ServiceBus;
 
 using Rhino.Etl.Core;
 using Rhino.Etl.Core.Operations;
@@ -14,18 +15,18 @@ namespace EventStore.Etl
 {
     public class StepEventStoreWrite : AbstractOperation
     {
-        public DataManager _Manager;
+        public Publisher _Publisher;
 
         public StepEventStoreWrite()
         {
-            _Manager = new DataManager();
+            _Publisher = new Publisher();
         }
 
         public override IEnumerable<Row> Execute(IEnumerable<Row> rows)
         {
             foreach (var row in rows)
             {
-                _Manager.Insert((Hospital)row["hospital"]);
+                _Publisher.Publish((Hospital)row["hospital"]);
                 yield return row;
             }
         }

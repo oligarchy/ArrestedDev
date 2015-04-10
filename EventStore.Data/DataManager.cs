@@ -15,7 +15,7 @@ using NEventStore.Persistence.Sql.SqlDialects;
 
 namespace EventStore.Data
 {
-    public class DataManager
+    public class DataManager<T> where T : AbstractEventObject
     {
         private static readonly byte[] EncryptionKey = new byte[]
         {
@@ -24,13 +24,13 @@ namespace EventStore.Data
 
         private IStoreEvents _store;
 
-        private IMongoDatabase _db; 
+        private IMongoDatabase _db;
+
+        private IMongoCollection<T> _collection;
 
         public DataManager()
         {
             _store = Wireup.Init()
-               .LogToOutputWindow()
-               .UsingInMemoryPersistence()
                .UsingSqlPersistence("EventStoreConnection") // Connection string is in app.config
                    .WithDialect(new MsSqlDialect())
                    .EnlistInAmbientTransaction() // two-phase commit
@@ -38,20 +38,18 @@ namespace EventStore.Data
                    .UsingBinarySerialization()
                        .Compress()
                        .EncryptWith(EncryptionKey)
-               .HookIntoPipelineUsing(new[] { new AuthorizationPipelineHook() })
-               .UsingSynchronousDispatchScheduler()
-                   .DispatchTo(new DelegateMessageDispatcher(DispatchCommit))
+               .HookIntoPipelineUsing(new IPipelineHook[] { new AuthorizationPipelineHook() })
                .Build();
 
             var client = new MongoClient("mongodb://localhost");
             _db = client.GetDatabase("EventStore");
+            _collection = _db.GetCollection<T>(typeof(T).ToString());
         }
 
-        public void Insert<T>(T obj) where T : AbstractEventObject
+        public void Insert(T obj)
         {
-            var collection = _db.GetCollection<T>(typeof(T).ToString());
-            obj.UpdateIndexes(collection.Indexes);
-            var task = collection.ReplaceOneAsync(x => x.Id == obj.Id, obj, new UpdateOptions{IsUpsert = true});
+            obj.UpdateIndexes(_collection.Indexes);
+            var task = _collection.ReplaceOneAsync(x => x.Id == obj.Id, obj, new UpdateOptions { IsUpsert = true });
             task.Wait();
 
             Guid streamId = obj.StreamId;
@@ -62,7 +60,7 @@ namespace EventStore.Data
             }
         }
 
-        public IEnumerable<T> GetHistory<T>(T obj) where T : AbstractEventObject
+        public IEnumerable<T> GetHistory(T obj)
         {
             Guid streamId = obj.StreamId;
             using (var stream = _store.OpenStream(streamId, 0))
@@ -74,26 +72,9 @@ namespace EventStore.Data
             }
         }
 
-        public T Get<T>(Expression<Func<T,bool>> query) where T : AbstractEventObject
+        public T Get(Expression<Func<T,bool>> query)
         {
-            var collection = _db.GetCollection<T>(typeof(T).ToString());
-            return collection.Find(query).FirstAsync().Result;
-        }
-
-        private static void DispatchCommit(ICommit commit)
-        {
-            // This is where we'd hook into our messaging infrastructure, such as NServiceBus,
-            // MassTransit, WCF, or some other communications infrastructure.
-            // This can be a class as well--just implement IDispatchCommits.
-            //try
-            //{
-            //    foreach (var @event in commit.Events)
-            //        Console.WriteLine(Resources.MessagesDispatched + ((SomeDomainEvent)@event.Body).Value);
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine(Resources.UnableToDispatch);
-            //}
+            return _collection.Find(query).FirstAsync().Result;
         }
     }
 }

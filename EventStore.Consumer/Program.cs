@@ -13,23 +13,21 @@ using NEventStore;
 using NEventStore.Dispatcher;
 using NEventStore.Persistence.Sql.SqlDialects;
 
+using Topshelf;
+
 namespace EventStore.Consumer
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("MESSAGE CONSUMER START");
-            Console.WriteLine("Waiting on incoming messages...");
-            Console.WriteLine("---------------------------------------------------------------------");
-
-            var bus = ServiceBusFactory.New(sbc =>
+            HostFactory.Run(x =>
             {
-                sbc.ReceiveFrom("rabbitmq://localhost/queue");
-                sbc.UseRabbitMq();
-                sbc.SupportBinarySerializer();
-                sbc.Subscribe(subs => subs.Consumer<HospitalConsumer>());
+                x.SetServiceName("EventStoreService");
+                x.Service(settings => new ConsumerService());
             });
+
+            Console.Read();
         }
     }
 }

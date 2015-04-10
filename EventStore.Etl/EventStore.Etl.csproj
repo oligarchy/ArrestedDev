@@ -84,8 +84,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StepEventStoreWrite2.cs" />
-    <Compile Include="StepConsoleWrite.cs" />
     <Compile Include="StepEventStoreWrite.cs" />
     <Compile Include="StepHospitalDataFileImport.cs" />
     <Compile Include="HospitalEtlProcess.cs" />
@@ -105,6 +103,10 @@
     <ProjectReference Include="..\EventStore.Data\EventStore.Data.csproj">
       <Project>{d4ced40c-6856-4427-8844-dcc0c5127799}</Project>
       <Name>EventStore.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventStore.ServiceBus\EventStore.ServiceBus.csproj">
+      <Project>{8c165887-d9f6-44a1-ac37-e7821e621594}</Project>
+      <Name>EventStore.ServiceBus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

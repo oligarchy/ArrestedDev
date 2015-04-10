@@ -17,8 +17,6 @@ namespace EventStore.Etl
             Register(new StepHospitalDataFileImport(@"../../../Data/Hospitals_2014.csv"));
             Register(new StepMapHospital());
             Register(new StepEventStoreWrite());
-            Register(new StepEventStoreWrite2());
-            Register(new StepConsoleWrite());
         }
     }
 }

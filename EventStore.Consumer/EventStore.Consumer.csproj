@@ -40,6 +40,9 @@
     <Reference Include="MassTransit">
       <HintPath>..\packages\MassTransit.2.9.9\lib\net40\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="MassTransit.NinjectIntegration">
+      <HintPath>..\packages\MassTransit.Ninject.2.9.9\lib\net40\MassTransit.NinjectIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="MassTransit.Transports.RabbitMq">
       <HintPath>..\packages\MassTransit.RabbitMQ.2.9.9\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
     </Reference>
@@ -62,6 +65,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.NamedScope">
+      <HintPath>..\packages\Ninject.Extensions.NamedScope.3.2.0.0\lib\net45-full\Ninject.Extensions.NamedScope.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\packages\RabbitMQ.Client.3.4.3\lib\net35\RabbitMQ.Client.dll</HintPath>
     </Reference>
@@ -81,8 +90,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Topshelf">
+      <HintPath>..\packages\Topshelf.3.1.4\lib\net40-full\Topshelf.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsumerService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

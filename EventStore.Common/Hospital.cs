@@ -28,10 +28,23 @@ namespace EventStore.Common
         public string Ownership { get; set; }
         public bool EmergencyServices { get; set; }
 
+        private static bool indexesUpdated = false;
+        private static readonly object IndexLock = new object();
+
         public override void UpdateIndexes<T>(IMongoIndexManager<T> indexes)
         {
-            var index = indexes.CreateOneAsync(Builders<T>.IndexKeys.Ascending("HospitalId")).Result;
-            index = indexes.CreateOneAsync(Builders<T>.IndexKeys.Ascending("Name")).Result;
+            if (!indexesUpdated)
+            {
+                lock (IndexLock)
+                {
+                    if (!indexesUpdated)
+                    {
+                        var index = indexes.CreateOneAsync(Builders<T>.IndexKeys.Ascending("HospitalId")).Result;
+                        index = indexes.CreateOneAsync(Builders<T>.IndexKeys.Ascending("Name")).Result;
+                        indexesUpdated = true;
+                    }
+                }
+            }
         }
     }
 }
