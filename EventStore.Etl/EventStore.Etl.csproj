@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleSpammer.cs" />
     <Compile Include="StepPublish.cs" />
     <Compile Include="StepHospitalDataFileImport.cs" />
     <Compile Include="HospitalEtlProcess.cs" />

@@ -12,21 +12,38 @@ namespace EventStore.Etl
     {
         static void Main(string[] args)
         {
-            List<string> filenames = new List<string>
-            {
-                @"../../../Data/Hospitals_2009.csv",
-                @"../../../Data/Hospitals_2010.csv",
-                @"../../../Data/Hospitals_2011.csv",
-                @"../../../Data/Hospitals_2012.csv",
-                @"../../../Data/Hospitals_2013.csv",
-                @"../../../Data/Hospitals_2014.csv"
-            };
+            var sw = new Stopwatch();
+            sw.Start();
 
-            foreach (var filename in filenames)
-            {
-                var process = new HospitalEtlProcess(filename);
-                process.Execute();
-            }  
+            ConsoleSpammer.CurrentFile = "";
+
+            ThreadPool.QueueUserWorkItem(
+                delegate
+                {
+                    while (true)
+                    {
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        Console.WriteLine("Publishing Messages\r\n"
+                                        + "Time Spent: {0}ms\r\n" 
+                                        + "File: {1}\r\n"
+                                        + "Data File Import Progress: {2}\r\n" 
+                                        + "Map Hospital Progress: {3}\r\n"
+                                        + "Message Queue Progress: {4}\r\n",
+                                        sw.ElapsedMilliseconds,
+                                        ConsoleSpammer.CurrentFile.Replace("..","").Replace("/",""),
+                                        ConsoleSpammer.StepHospitalDataFileImport,
+                                        ConsoleSpammer.StepMapHospital,
+                                        ConsoleSpammer.StepPublish);
+                    }
+                }
+            );
+
+            
+            var process = new HospitalEtlProcess();
+            process.Execute();
+
+            sw.Stop();
         }
     }
 }

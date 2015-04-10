@@ -26,6 +26,8 @@ namespace EventStore.Etl
         {
             foreach (var row in rows)
             {
+                ConsoleSpammer.StepPublish++;
+
                 _Publisher.Publish((Hospital)row["hospital"]);
                 yield return row;
             }

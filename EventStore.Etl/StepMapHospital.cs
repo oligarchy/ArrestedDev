@@ -19,6 +19,8 @@ namespace EventStore.Etl
         {
             foreach (var row in rows)
             {
+                ConsoleSpammer.StepMapHospital++;
+
                 var hospital = new Hospital();
                 var rtn = new Row();
 
