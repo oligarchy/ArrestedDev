@@ -1,4 +1,4 @@
-﻿@model EventStore.Web.Models.LoginHistoryModel
+﻿@model EventStore.Web.Models.LoginDetailsModel
 
 @{
     ViewBag.Title = "Login History";
@@ -12,10 +12,10 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(login.UserName, "LoginDetails", new { Username = login.UserName })
+                @login.UserName
             </td>
             <td>
-                
+                @login.LastLogin
             </td>
         </tr>
         <tr>
