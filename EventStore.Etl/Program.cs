@@ -14,6 +14,9 @@ namespace EventStore.Etl
         {
             List<string> filenames = new List<string>
             {
+                @"../../../Data/Hospitals_2009.csv",
+                @"../../../Data/Hospitals_2010.csv",
+                @"../../../Data/Hospitals_2011.csv",
                 @"../../../Data/Hospitals_2012.csv",
                 @"../../../Data/Hospitals_2013.csv",
                 @"../../../Data/Hospitals_2014.csv"
