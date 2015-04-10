@@ -168,6 +168,7 @@
     <Content Include="Views\Details\ViewCollections.cshtml" />
     <Content Include="Views\Details\ViewEntities.cshtml" />
     <Content Include="Views\Details\ViewEntityDetails.cshtml" />
+    <Content Include="Views\Home\Links.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventStore.Common\EventStore.Common.csproj">
