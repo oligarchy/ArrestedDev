@@ -79,6 +79,7 @@ namespace EventStore.Web.Controllers
             docs.Wait();
 
             model.HospitalDetails = docs.Result.FirstOrDefault();
+            model.CollectionName = CollectionName;
 
             return View(model);
         }

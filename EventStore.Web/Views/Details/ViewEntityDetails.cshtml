@@ -72,4 +72,10 @@
         <td><strong>Emergency Services: </strong></td>
         <td>@Model.HospitalDetails.EmergencyServices.ToString()</td>
     </tr>
+
+    <tr>
+        <td colspan="2">
+            @Html.ActionLink("<< Back to collection", "ViewEntities", new { CollectionName = Model.CollectionName })
+        </td>
+    </tr>
 </table>

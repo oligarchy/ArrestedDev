@@ -8,6 +8,7 @@ namespace EventStore.Web.Models
 {
     public class ViewEntityDetailsModel
     {
+        public string CollectionName { get; set; }
         public Hospital HospitalDetails { get; set; }
     }
 }
