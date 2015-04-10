@@ -103,7 +103,7 @@
 
     <tr>
         <td colspan="3">
-            @Html.ActionLink("<< Back to collection", "ViewEntities", new { CollectionName = Model.CollectionName })
+            @Html.ActionLink("<< Back to entity detail", "ViewEntityDetails", new { CollectionName = "", EntityId = Model.Current.Id })
         </td>
     </tr>
 </table>

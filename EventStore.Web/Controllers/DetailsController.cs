@@ -51,7 +51,7 @@ namespace EventStore.Web.Controllers
             var docs = results.Result.ToListAsync();
             docs.Wait();
 
-            model.Hospitals = docs.Result;
+            model.Hospitals = docs.Result.Take(50).ToList();
             model.CollectionName = CollectionName;
 
             return View(model);
