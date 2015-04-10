@@ -15,7 +15,12 @@
                 @hospital.Name
             </td>
             <td>
-                @Html.ActionLink("View", "ViewEntityDetails", new { EntityId = hospital.Id })
+                @Html.ActionLink("View", "ViewEntityDetails", new { CollectionName = "", EntityId = hospital.Id })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr />
             </td>
         </tr>
     }

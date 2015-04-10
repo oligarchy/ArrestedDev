@@ -1,7 +1,75 @@
-﻿
+﻿@model EventStore.Web.Models.ViewEntityDetailsModel
+
 @{
-    ViewBag.Title = "ViewEntityDetails";
+    ViewBag.Title = "View Entiy Details";
 }
 
-<h2>ViewEntityDetails</h2>
+<br />
 
+<table cellpadding="15px">
+
+    <tr>
+        <td>Id: </td>
+        <td>@Model.HospitalDetails.Id</td>
+    </tr>
+
+    <tr>
+        <td>Stream Id: </td>
+        <td>@Model.HospitalDetails.StreamId.ToString()</td>
+    </tr>
+
+    <tr>
+        <td>Hospital Id: </td>
+        <td>@Model.HospitalDetails.HospitalId</td>
+    </tr>
+
+    <tr>
+        <td>Name: </td>
+        <td>@Model.HospitalDetails.Name</td>
+    </tr>
+
+    <tr>
+        <td>Address: </td>
+        <td>@Model.HospitalDetails.Address</td>
+    </tr>
+
+    <tr>
+        <td>City: </td>
+        <td>@Model.HospitalDetails.City</td>
+    </tr>
+
+    <tr>
+        <td>State: </td>
+        <td>@Model.HospitalDetails.State</td>
+    </tr>
+
+    <tr>
+        <td>ZipCode: </td>
+        <td>@Model.HospitalDetails.ZipCode</td>
+    </tr>
+
+    <tr>
+        <td>County: </td>
+        <td>@Model.HospitalDetails.CountyName</td>
+    </tr>
+
+    <tr>
+        <td>Phone Number: </td>
+        <td>@Model.HospitalDetails.PhoneNumber</td>
+    </tr>
+
+    <tr>
+        <td>Type: </td>
+        <td>@Model.HospitalDetails.Type</td>
+    </tr>
+
+    <tr>
+        <td>Ownership: </td>
+        <td>@Model.HospitalDetails.Ownership</td>
+    </tr>
+
+    <tr>
+        <td>Emergency Services: </td>
+        <td>@Model.HospitalDetails.EmergencyServices.ToString()</td>
+    </tr>
+</table>

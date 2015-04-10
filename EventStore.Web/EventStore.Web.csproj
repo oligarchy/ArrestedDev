@@ -133,7 +133,7 @@
     </Compile>
     <Compile Include="Models\ViewCollectionsModel.cs" />
     <Compile Include="Models\ViewEntitiesModel.cs" />
-    <Compile Include="Models\ViewEntityDetails.cs" />
+    <Compile Include="Models\ViewEntityDetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,11 @@ namespace EventStore.Web.Controllers
 
         public ActionResult ViewEntities(string CollectionName)
         {
+            if (CollectionName == null)
+            {
+                CollectionName = "EventStore.Common.Hospital";
+            }
+
             ViewEntitiesModel model = new ViewEntitiesModel();
 
             var mongo = GetMongoDb();
@@ -46,13 +51,36 @@ namespace EventStore.Web.Controllers
             docs.Wait();
 
             model.Hospitals = docs.Result;
+            model.CollectionName = CollectionName;
 
             return View(model);
         }
 
-        public ActionResult ViewEntityDetails(string EntityId)
+        public ActionResult ViewEntityDetails(string CollectionName, string EntityId)
         {
-            return View();
+            if (CollectionName == null)
+            {
+                CollectionName = "EventStore.Common.Hospital";
+            }
+
+            if (EntityId == null)
+            {
+                EntityId = "5526dead3b433538081c8b25";
+            }
+
+            ViewEntityDetailsModel model = new ViewEntityDetailsModel();
+
+            var mongo = GetMongoDb();
+            IMongoCollection<Hospital> collection = mongo.GetCollection<Hospital>(CollectionName);
+            var results = collection.FindAsync(x => x.Id == EntityId);
+            results.Wait();
+
+            var docs = results.Result.ToListAsync();
+            docs.Wait();
+
+            model.HospitalDetails = docs.Result.FirstOrDefault();
+
+            return View(model);
         }
 
         private IMongoDatabase GetMongoDb()
