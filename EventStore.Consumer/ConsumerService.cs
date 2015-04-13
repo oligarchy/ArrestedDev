@@ -19,7 +19,7 @@ namespace EventStore.Consumer
                 sbc.UseRabbitMq();
                 sbc.Subscribe(subs => subs.Consumer<HospitalConsumer>(kernel));
                 sbc.Subscribe(subs => subs.Consumer<LoginConsumer>(kernel));
-                sbc.SetConcurrentConsumerLimit(1);
+                sbc.SetConcurrentConsumerLimit(10);
             }));
 
             kernel.Bind<HospitalConsumer>().ToSelf();

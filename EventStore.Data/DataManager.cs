@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 using EventStore.Common;
 
@@ -53,12 +54,29 @@ namespace EventStore.Data
             task.Wait();
 
             Guid streamId = obj.StreamId;
-            using (var stream = _store.OpenStream(streamId, 0))
+
+            if (!_locks.ContainsKey(streamId))
             {
-                stream.Add(new EventMessage { Body = obj });
-                stream.CommitChanges(Guid.NewGuid());
+                lock (_locks)
+                {
+                    if (!_locks.ContainsKey(streamId))
+                    {
+                        _locks[streamId] = new object();
+                    }
+                }
+            }
+
+            lock (_locks[streamId])
+            {
+                using (var stream = _store.OpenStream(streamId, 0))
+                {
+                    stream.Add(new EventMessage { Body = obj });
+                    stream.CommitChanges(Guid.NewGuid());
+                }
             }
         }
+
+        static Dictionary<Guid, object> _locks = new Dictionary<Guid, object>(); 
 
         public IEnumerable<T> GetHistory(T obj)
         {
