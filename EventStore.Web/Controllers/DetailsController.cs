@@ -37,12 +37,7 @@ namespace EventStore.Web.Controllers
             return View(model);
         }
 
-        public ActionResult ViewEntities(string CollectionName)
-        {
-            return ViewEntities(CollectionName, 0);
-        }
-
-        public ActionResult ViewEntities(string CollectionName, int Page)
+        public ActionResult ViewEntities(string CollectionName, int Page = 0)
         {
             int skip = 0;
 

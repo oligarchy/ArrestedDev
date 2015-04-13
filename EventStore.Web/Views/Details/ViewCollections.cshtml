@@ -13,9 +13,16 @@
         <tr>
             <td>
                 @collectionName
-            </td>  
+            </td>
             <td>
-                @Html.ActionLink("View", "ViewEntities", new { CollectionName = collectionName })
+                @if (collectionName == "EventStore.Common.Login")
+                {
+                    @Html.ActionLink("View", "LoginHistory")
+                }
+                else
+                {
+                    @Html.ActionLink("View", "ViewEntities", new { CollectionName = collectionName })
+                }
             </td>
         </tr>
     }
